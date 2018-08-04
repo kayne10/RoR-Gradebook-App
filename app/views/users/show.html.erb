@@ -1,0 +1,87 @@
+<% provide(:title, @user.name) %>
+
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user%>
+        <%= @user.name %>
+      </h1>
+      <h3><%= @user.email %></h3>
+      <!-- User Permission Status  -->
+      <% if @user.student? %>
+        <h3><strong>Status:</strong> Student</h3>
+      <% end %>
+      <% if @user.teacher? %>
+        <h3>Status: Teacher</h3>
+      <% end %>
+      <% if @user.admin? %>
+        <h3>Status: Administrator</h3>
+      <% end %>
+
+      <hr>
+      <ul class="nav nav-stacked">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+      </ul>
+    </section>
+  </aside>
+
+  <!-- if Teacher render this as template -->
+  <div class="col-md-4">
+    <h2>Courses</h2>
+    <%=link_to "Add Course", new_course_path, class: 'btn btn-primary' %>
+    <!-- Loop through courses -->
+    <table class="table">
+      <tr>
+        <td>ID</td>
+        <td>Title</td>
+        <td>Actions</td>
+      </tr>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.id %></td>
+          <td><%= course.title %></td>
+          <td><%= link_to 'View', courses_path(course), class: 'btn btn-primary'  %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <h2>Students</h2>
+    <!-- Loop through all students -->
+    <table class="table">
+      <tr>
+        <td>Name</td>
+        <td>Action</td>
+      </tr>
+      <tr>
+        <td>Troy Kayne</td>
+        <td><button class="btn btn-primary">Enroll</button></td>
+      </tr>
+      <tr>
+        <td>Sean Alexander</td>
+        <td><button class="btn btn-primary">Enroll</button></td>
+      </tr>
+    </table>
+  </div>
+  <!-- End of Teacher view -->
+
+
+  <!-- if Student render this -->
+  <div class="col-md-4">
+    <h2>Courses</h2>
+    <!-- view courses and grade status -->
+  </div>
+  <div class="col-md-4">
+    <h2>Semester GPA</h2>
+    <!-- Display GPA -->
+  </div>
+  <!-- End of student view -->
+
+  <!-- If admin render this  -->
+
+
+</div>
