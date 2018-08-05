@@ -1,0 +1,29 @@
+
+
+<div class="container">
+  <h1 class="center"><%= @course.title %></h1>
+  <h4 class="center">Starts at: <%= @course.start_date %> and Ends at: <%= @course.end_date%></h4>
+  <!-- user pluralize for number of students -->
+  <br>
+  <br>
+  <h3>Roster</h3>
+  <!-- Table of registered students and corresponding grade -->
+  <table class="table">
+    <tr>
+      <td>Student ID</td>
+      <td>Name</td>
+      <td>Grade</td>
+      <td>Actions</td>
+    </tr>
+    <!-- loop through students in class -->
+    <tr>
+      <td>1</td>
+      <td>Troy Kayne</td>
+      <td>A</td>
+      <td>
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-danger">Drop</button>
+      </td>
+    </tr>
+  </table>
+</div>

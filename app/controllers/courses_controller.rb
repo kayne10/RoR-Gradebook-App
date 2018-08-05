@@ -9,6 +9,12 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    # find users that are students and registed with class
+    # @students = User.where(student:true)
+  end
+
+  def edit
+    @course = Course.find(params[:id])
   end
 
   def create
@@ -24,9 +30,22 @@ class CoursesController < ApplicationController
   end
 
   def update
+    @course = Course.find(params[:id])
+
+    if @course.update_attributes(course_params)
+      # fash success and redirect
+      redirect_to current_user
+    else
+      # handle error message
+      render 'edit'
+    end
   end
 
   def destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    # flash success and redirect
+    redirect_to current_user
   end
 
   private
