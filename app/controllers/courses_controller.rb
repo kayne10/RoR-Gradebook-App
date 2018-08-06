@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @teachers = User.where(teacher:true)
   end
 
   def show
@@ -19,7 +20,7 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
-    # binding.pry
+    #binding.pry
     if @course.save
       # redirect to profile
       redirect_to current_user

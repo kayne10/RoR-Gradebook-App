@@ -1,5 +1,5 @@
 class Grade < ApplicationRecord
   belongs_to :user #student
   belongs_to :course #grade for course
-  validates :value, presence: true, length: {max:1}
+  validates :grade_value, presence: true, length: {maximum:1}
 end

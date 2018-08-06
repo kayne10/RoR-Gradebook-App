@@ -2,37 +2,36 @@
 
 <div class="cointainer">
   <div class="row">
-    <aside class="col-md-4" style="height:80vh;">
+    <aside class="col-md-4" style="height:80vh;padding-left:2em;">
       <section class="user_info">
         <h1>
           <%= gravatar_for @user%>
           <%= @user.name %>
         </h1>
-        <h3><%= @user.email %></h3>
+        <h3>Email: <%= @user.email %></h3>
         <!-- User Permission Status  -->
         <% if @user.student? %>
           <h3><strong>Status:</strong> Student</h3>
         <% end %>
         <% if @user.teacher? %>
-          <h3>Status: Teacher</h3>
+          <h3><strong>Status:</strong> Teacher</h3>
         <% end %>
         <% if @user.admin? %>
-          <h3>Status: Administrator</h3>
+          <h3><strong>Status:</strong> Administrator</h3>
         <% end %>
 
         <hr>
-        <!-- <ul class="nav nav-stacked">
-          <li role="presentation" class="active"><a href="#">Home</a></li>
-          <li role="presentation"><a href="#">Profile</a></li>
-          <li role="presentation"><a href="#">Messages</a></li>
-        </ul> -->
+        <ul class="nav nav-stacked">
+          <li><%=link_to "Add Course", new_course_path %></li>
+          <li><%= link_to 'Assign a grade', new_grade_path %></li>
+          <li><a href="#">Enroll a student</a></li>
+        </ul>
       </section>
     </aside>
 
     <!-- if Teacher render this as template -->
     <div class="col-md-8">
-      <h2>Courses</h2>
-      <%=link_to "Add Course", new_course_path, class: 'btn btn-primary' %>
+      <h2>My Courses</h2>
       <!-- Loop through courses -->
       <table class="table">
         <tr>
@@ -55,15 +54,38 @@
     </div>
 
     <div class="col-md-8">
+      <h2>My Students</h2>
+      <!-- Loop through all students -->
+      <table class="table">
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Grade</td>
+          <td>Action</td>
+        </tr>
+        <% @students.each do |s| %>
+          <tr>
+            <td><%= s.id %></td>
+            <td><%= s.name %></td>
+            <td>A</td>
+            <td><button class="btn btn-primary">Change Grade</button></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <div class="col-md-8">
       <h2>All Students</h2>
       <!-- Loop through all students -->
       <table class="table">
         <tr>
+          <td>ID</td>
           <td>Name</td>
           <td>Action</td>
         </tr>
         <% @students.each do |s| %>
           <tr>
+            <td><%= s.id %></td>
             <td><%= s.name %></td>
             <td><button class="btn btn-primary">Enroll</button></td>
           </tr>
@@ -74,16 +96,18 @@
 
 
     <!-- if Student render this -->
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Courses</h2>
+    <!-- <div class="row"> -->
+      <!-- <div class="col-md-4"> -->
+        <!-- <h2>My Courses</h2> -->
         <!-- view courses and grade status -->
-      </div>
-      <div class="col-md-4">
-        <h2>Semester GPA</h2>
+      <!-- </div> -->
+      <!-- <div class="gpa col-md-4" style="display:flex; justify-content:space-between;"> -->
+        <!-- <h2>Semester GPA</h2> -->
         <!-- Display GPA -->
-      </div>
-    </div>
+        <br>
+        <!-- <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;">3.25</span> -->
+      <!-- </div> -->
+    <!-- </div> -->
     <!-- End of student view -->
 
     <!-- If admin render this  -->

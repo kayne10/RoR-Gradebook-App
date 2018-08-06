@@ -7,15 +7,18 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence:true, length: {minimum: 6}
+  has_many :course
+  has_many :grade
   # validates :student, presence:true || :teacher, presence:true, || :admin, presence:true
+
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
 
   def default_values
-    self.student ||= true
-    self.teacher ||= false
+    self.student ||= false
+    self.teacher ||= true
     self.admin ||= false
   end
 end

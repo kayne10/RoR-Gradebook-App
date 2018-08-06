@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="center">All Grades</h1>
+
+  <div class="table-header">
+    <%= link_to 'Add Grade', new_grade_path, class: 'btn btn-primary' %>
+    <h3 class="badge"><%= pluralize(@grades.count, 'Grade') %></h3>
+  </div>
+
+  <table class="table">
+    <tr>
+      <td>Student ID</td>
+      <td>Course ID</td>
+      <td>Grade</td>
+      <td>Actions</td>
+    </tr>
+    <% @grades.each do |g| %>
+      <tr>
+        <td><%= g.user_id %></td>
+        <td><%= g.course_id %></td>
+        <td><%= g.grade_value %></td>
+        <td>
+          <button class="btn btn-primary">Edit</button>
+          <button class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @courses = Course.all #will be filtered by user_id
+    @courses = Course.where(user_id:current_user.id) #will be filtered by users
     # filter through users who are students
     @students = User.where(student:true)
   end
