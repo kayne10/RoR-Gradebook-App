@@ -14,6 +14,9 @@ class UsersController < ApplicationController
     @courses = Course.where(user_id:current_user.id) #will be filtered by users
     # filter through users who are students
     @students = User.where(student:true)
+    @student = User.joins(:grade).where(grades: {user_id:current_user.id}).limit(1)
+    # Calculate GPA
+    # @grades = @student.grade.each
   end
 
   # GET /users/new

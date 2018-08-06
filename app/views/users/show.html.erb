@@ -21,93 +21,114 @@
         <% end %>
 
         <hr>
-        <ul class="nav nav-stacked">
-          <li><%=link_to "Add Course", new_course_path %></li>
-          <li><%= link_to 'Assign a grade', new_grade_path %></li>
-          <li><a href="#">Enroll a student</a></li>
-        </ul>
+        <% if @user.teacher? %>
+          <ul class="nav nav-stacked">
+            <li><%=link_to "Add Course", new_course_path %></li>
+            <li><%= link_to 'Assign a grade', new_grade_path %></li>
+            <li><a href="#">Enroll a student</a></li>
+          </ul>
+        <% end %>
       </section>
     </aside>
 
     <!-- if Teacher render this as template -->
-    <div class="col-md-8">
-      <h2>My Courses</h2>
-      <!-- Loop through courses -->
-      <table class="table">
-        <tr>
-          <td>ID</td>
-          <td>Title</td>
-          <td>Actions</td>
-        </tr>
-        <% @courses.each do |course| %>
+    <% if @user.teacher? %>
+      <div class="col-md-8">
+        <h2>My Courses</h2>
+        <!-- Loop through courses -->
+        <table class="table">
           <tr>
-            <td><%= course.id %></td>
-            <td><%= course.title %></td>
-            <td>
-              <%= link_to 'View', course_path(course), class: 'btn btn-primary'  %>
-              <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-primary'%>
-              <%= link_to 'Delete', course_path(course), method:'delete', class: 'btn btn-danger' %>
-            </td>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Actions</td>
           </tr>
-        <% end %>
-      </table>
-    </div>
+          <% @courses.each do |course| %>
+            <tr>
+              <td><%= course.id %></td>
+              <td><%= course.title %></td>
+              <td>
+                <%= link_to 'View', course_path(course), class: 'btn btn-primary'  %>
+                <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-primary'%>
+                <%= link_to 'Delete', course_path(course), method:'delete', :data=>{:confirm=>'Are you sure?'}, class: 'btn btn-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
 
-    <div class="col-md-8">
-      <h2>My Students</h2>
-      <!-- Loop through all students -->
-      <table class="table">
-        <tr>
-          <td>ID</td>
-          <td>Name</td>
-          <td>Grade</td>
-          <td>Action</td>
-        </tr>
-        <% @students.each do |s| %>
+      <div class="col-md-8">
+        <h2>My Students</h2>
+        <!-- Loop through all students -->
+        <table class="table">
           <tr>
-            <td><%= s.id %></td>
-            <td><%= s.name %></td>
-            <td>A</td>
-            <td><button class="btn btn-primary">Change Grade</button></td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Grade</td>
+            <td>Action</td>
           </tr>
-        <% end %>
-      </table>
-    </div>
+          <% @students.each do |s| %>
+            <tr>
+              <td><%= s.id %></td>
+              <td><%= s.name %></td>
+              <td>A</td>
+              <td><button class="btn btn-primary">Change Grade</button></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
 
-    <div class="col-md-8">
-      <h2>All Students</h2>
-      <!-- Loop through all students -->
-      <table class="table">
-        <tr>
-          <td>ID</td>
-          <td>Name</td>
-          <td>Action</td>
-        </tr>
-        <% @students.each do |s| %>
+      <div class="col-md-8">
+        <h2>All Students</h2>
+        <!-- Loop through all students -->
+        <table class="table">
           <tr>
-            <td><%= s.id %></td>
-            <td><%= s.name %></td>
-            <td><button class="btn btn-primary">Enroll</button></td>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Action</td>
           </tr>
-        <% end %>
-      </table>
-    </div>
+          <% @students.each do |s| %>
+            <tr>
+              <td><%= s.id %></td>
+              <td><%= s.name %></td>
+              <td><button class="btn btn-primary">Enroll</button></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
     <!-- End of Teacher view -->
 
 
     <!-- if Student render this -->
-    <!-- <div class="row"> -->
-      <!-- <div class="col-md-4"> -->
-        <!-- <h2>My Courses</h2> -->
+    <% if @user.student? %>
+      <div class="col-md-8">
+        <h2>My Courses</h2>
         <!-- view courses and grade status -->
-      <!-- </div> -->
-      <!-- <div class="gpa col-md-4" style="display:flex; justify-content:space-between;"> -->
-        <!-- <h2>Semester GPA</h2> -->
+        <table class="table">
+          <tr>
+            <td>Student ID</td>
+            <td>Course ID</td>
+            <td>Grade</td>
+          </tr>
+            <% @student.each do |row| %>
+              <% row.grade.each do |data| %>
+              <tr>
+                <td><%= data.user_id %></td>
+                <td><%= data.course_id %> </td>
+                <td><%= data.grade_value %></td>
+              </tr>
+              <% end %>
+            <% end %>
+          </table>
+      </div>
+      <div class="gpa col-md-8" style="display:flex;padding-right:3em;">
+        <h2>Semester GPA:  </h2>
         <!-- Display GPA -->
-        <br>
-        <!-- <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;">3.25</span> -->
-      <!-- </div> -->
-    <!-- </div> -->
+        <br><br>
+        <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;padding-left:3em;">3.0</span>
+      </div>
+
+    <% end %>
     <!-- End of student view -->
 
     <!-- If admin render this  -->
