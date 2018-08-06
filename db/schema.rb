@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806005734) do
+ActiveRecord::Schema.define(version: 20180806164302) do
 
   create_table "courses", force: :cascade do |t|
     t.integer "user_id"
@@ -28,19 +28,6 @@ ActiveRecord::Schema.define(version: 20180806005734) do
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["users_id"], name: "index_courses_users_on_users_id"
     t.index [nil, "course_id"], name: "index_courses_users_on_user_id_and_course_id", unique: true
-  end
-
-  create_table "enrollments", force: :cascade do |t|
-    t.integer "course_id_id"
-    t.integer "student_id_id"
-    t.integer "teacher_id_id"
-    t.boolean "registered"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "student_name"
-    t.index ["course_id_id"], name: "index_enrollments_on_course_id_id"
-    t.index ["student_id_id"], name: "index_enrollments_on_student_id_id"
-    t.index ["teacher_id_id"], name: "index_enrollments_on_teacher_id_id"
   end
 
   create_table "grades", force: :cascade do |t|
