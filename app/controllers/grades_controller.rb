@@ -11,6 +11,10 @@ class GradesController < ApplicationController
     @grade = Grade.find(params[:id])
   end
 
+  def edit
+    @grade = Grade.find(params[:id])
+  end
+
   def create
     @grade = Grade.new(grade_params)
     # binding.pry
@@ -24,6 +28,14 @@ class GradesController < ApplicationController
   end
 
   def update
+    @grade = Grade.find(params[:id])
+    if @grade.update_attributes(grade_params)
+      # flash success
+      redirect_to current_user
+    else
+      # handle error
+      render 'edit'
+    end
   end
 
   private

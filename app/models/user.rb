@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :password, presence:true, length: {minimum: 6}
   has_many :course
   has_many :grade
+  has_many :enrollment
   # validates :student, presence:true || :teacher, presence:true, || :admin, presence:true
 
   def User.digest(string)

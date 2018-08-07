@@ -10,8 +10,9 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @teacher = User.where(id:@course.user_id)
     # find users that are students and registed with class
-    # @students = User.where(student:true)
+    @students = User.joins(grade: :course).where('courses.id'=> @course.id)
   end
 
   def edit

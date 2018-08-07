@@ -38,9 +38,9 @@
         <!-- Loop through courses -->
         <table class="table">
           <tr>
-            <td>ID</td>
-            <td>Title</td>
-            <td>Actions</td>
+            <td><strong>ID</strong></td>
+            <td><strong>Title</strong></td>
+            <td><strong>Actions</strong></td>
           </tr>
           <% @courses.each do |course| %>
             <tr>
@@ -61,17 +61,19 @@
         <!-- Loop through all students -->
         <table class="table">
           <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Grade</td>
-            <td>Action</td>
+            <td><strong>ID</strong></td>
+            <td><strong>Name</strong></td>
+            <td><strong>Course(s)</strong></td>
           </tr>
-          <% @students.each do |s| %>
+          <% @teachers_students.each do |s| %>
             <tr>
               <td><%= s.id %></td>
               <td><%= s.name %></td>
-              <td>A</td>
-              <td><button class="btn btn-primary">Change Grade</button></td>
+              <td>
+                <% s.grade.each do |g| %>
+                  <%= g.course.title %>,
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </table>
@@ -82,9 +84,9 @@
         <!-- Loop through all students -->
         <table class="table">
           <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Action</td>
+            <td><strong>ID</strong></td>
+            <td><strong>Name</strong></td>
+            <td><strong>Action</strong></td>
           </tr>
           <% @students.each do |s| %>
             <tr>
@@ -106,16 +108,28 @@
         <!-- view courses and grade status -->
         <table class="table">
           <tr>
-            <td>Student ID</td>
-            <td>Course ID</td>
-            <td>Grade</td>
+            <!-- <td>Student ID</td> -->
+            <td><strong>Course ID</strong></td>
+            <td><strong>Title</strong></td>
+            <td><strong>Grade</strong></td>
           </tr>
             <% @student.each do |row| %>
               <% row.grade.each do |data| %>
               <tr>
-                <td><%= data.user_id %></td>
+                <!-- <td><%= data.user_id %></td> -->
                 <td><%= data.course_id %> </td>
-                <td><%= data.grade_value %></td>
+                <td><%= data.course.title %></td>
+                  <% if data.grade_value == 4 %>
+                    <td>A</td>
+                  <% elsif data.grade_value == 3 %>
+                    <td>B</td>
+                  <% elsif data.grade_value == 2 %>
+                    <td>C</td>
+                  <% elsif data.grade_value == 1 %>
+                    <td>D</td>
+                  <% else %>
+                    <td>F</td>
+                  <% end %>
               </tr>
               <% end %>
             <% end %>
@@ -125,7 +139,9 @@
         <h2>Semester GPA:  </h2>
         <!-- Display GPA -->
         <br><br>
-        <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;padding-left:3em;">3.0</span>
+        <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;padding-left:3em;">
+          <%= @gpa %>
+        </span>
       </div>
 
     <% end %>

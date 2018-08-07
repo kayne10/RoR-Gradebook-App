@@ -2,9 +2,9 @@
 
 <div class="container">
   <h1 class="center"><%= @course.title %></h1>
+  <h4 class="center">Taught by: <strong><%= @teacher[0].name  %></strong></h4>
   <h4 class="center">Starts at: <%= @course.start_date %> and Ends at: <%= @course.end_date%></h4>
   <!-- user pluralize for number of students -->
-  <br>
   <br>
   <h3>Roster</h3>
   <!-- Table of registered students and corresponding grade -->
@@ -13,62 +13,30 @@
       <td>Student ID</td>
       <td>Name</td>
       <td>Grade</td>
-      <td>Actions</td>
+      <td>Action</td>
     </tr>
     <!-- loop through students in class -->
+    <% @students.each do |student| %>
+
     <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
+      <td><%= student.id %></td>
+      <td><%= student.name %></td>
+        <% if student.grade[0].grade_value == 4 %>
+          <td>A</td>
+        <% elsif student.grade[0].grade_value == 3 %>
+          <td>B</td>
+        <% elsif student.grade[0].grade_value == 2 %>
+          <td>C</td>
+        <% elsif student.grade[0].grade_value == 1 %>
+          <td>D</td>
+        <% else %>
+          <td>F</td>
+        <% end %>
       <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
+        <%= link_to 'Change Grade', edit_grade_path(student.grade[0].id), class: 'btn btn-primary' %>
       </td>
     </tr>
-    <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
-      <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
-      </td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
-      <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
-      </td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
-      <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
-      </td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
-      <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
-      </td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Troy Kayne</td>
-      <td>A</td>
-      <td>
-        <button class="btn btn-primary">Change Grade</button>
-        <button class="btn btn-danger">Drop</button>
-      </td>
-    </tr>
+
+    <% end %>
   </table>
 </div>
