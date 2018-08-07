@@ -2,6 +2,7 @@
 
 <div class="container">
   <h1 class="center"><%= @course.title %></h1>
+  <h2 class="center">ID: <%= @course.id %></h2>
   <h4 class="center">Taught by: <strong><%= @teacher[0].name  %></strong></h4>
   <h4 class="center">Starts at: <%= @course.start_date %> and Ends at: <%= @course.end_date%></h4>
   <!-- user pluralize for number of students -->

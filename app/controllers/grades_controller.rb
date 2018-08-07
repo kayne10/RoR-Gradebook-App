@@ -20,7 +20,7 @@ class GradesController < ApplicationController
     # binding.pry
     if @grade.save
       # flash success
-      render 'index'
+      redirect_to current_user
     else
       # handle error
       render 'new'

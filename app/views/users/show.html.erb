@@ -25,7 +25,7 @@
           <ul class="nav nav-stacked">
             <li><%=link_to "Add Course", new_course_path %></li>
             <li><%= link_to 'Assign a grade', new_grade_path %></li>
-            <li><a href="#">Enroll a student</a></li>
+            <li><%= link_to 'Enroll a student', new_enrollment_path %>
           </ul>
         <% end %>
       </section>
@@ -70,7 +70,7 @@
               <td><%= s.id %></td>
               <td><%= s.name %></td>
               <td>
-                <% s.grade.each do |g| %>
+                <% s.enrollment.each do |g| %>
                   <%= g.course.title %>,
                 <% end %>
               </td>
@@ -92,7 +92,7 @@
             <tr>
               <td><%= s.id %></td>
               <td><%= s.name %></td>
-              <td><button class="btn btn-primary">Enroll</button></td>
+              <td><%= link_to 'Enroll', new_enrollment_path, class:'btn btn-primary' %></td>
             </tr>
           <% end %>
         </table>
@@ -148,7 +148,46 @@
     <!-- End of student view -->
 
     <!-- If admin render this  -->
-
-
+    <% if @user.admin? %>
+      <div class="col-md-8">
+        <h2>Semesters</h2>
+        <!-- table with semester id, title, and enrollment count -->
+        <table class="table">
+          <tr>
+            <td>Semester ID</td>
+            <td>Term</td>
+            <td>Enrollment Count</td>
+          </tr>
+          <% @semesters.each do |semester| %>
+            <tr>
+              <td><%= semester.id %></td>
+              <td><%= semester.title %></td>
+              <td><%= semester.enrollment.count %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="col-md-8">
+        <h2>Courses and AVG Grades</h2>
+        <!-- table with courses and average gpa -->
+        <table class="table">
+          <tr>
+            <!-- Might not need semester id for performance reasons -->
+            <td>Semester ID</td>
+            <td>Course ID</td>
+            <td>Course Title</td>
+            <td>Average GPA</td>
+          </tr>
+          <% @courses.each do |course| %>
+            <tr>
+              <td><%= course.semester_id %></td>
+              <td><%= course.id %></td>
+              <td><%= course.title  %></td>
+              <td><%= course.grade.sum(:grade_value).to_f / course.grade.count  %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
   </div>
 </div>

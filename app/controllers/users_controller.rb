@@ -10,13 +10,15 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
-    @courses = Course.where(user_id:current_user.id) #will be filtered by users
-    # filter through users who are students
-    @students = User.where(student:true)
-    # filter through teacher's students
-    @teachers_students = User.joins(grade: :course).where('courses.user_id'=>current_user).distinct
-    if current_user.student?
+    if current_user.teacher?
+      @user = User.find(params[:id])
+      # filter through courses managed by teacher
+      @courses = Course.where(user_id:current_user.id)
+      # filter through users who are students
+      @students = User.where(student:true)
+      # inner join to get teacher's students
+      @teachers_students = User.joins(enrollment: [{course: :grade}]).where('courses.user_id'=>current_user).distinct
+    elsif current_user.student?
       # @student = User.joins(:grade).where(grades: {user_id:current_user.id}).distinct
       @student = User.joins(grade: :course).distinct
       @student = @student.where(id:current_user)
@@ -25,6 +27,10 @@ class UsersController < ApplicationController
       @grade_sum = @grades.sum(:grade_value)
       @grade_count = @grades.count
       @gpa = @grade_sum.to_f / @grade_count
+    else
+      # inner join for semesters with enrollment count
+      @semesters = Semester.joins(enrollment: :course).distinct
+      @courses = Course.joins(:grade).distinct # Join for Courses and GPA
     end
   end
 

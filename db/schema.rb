@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806164302) do
+ActiveRecord::Schema.define(version: 20180807185954) do
 
   create_table "courses", force: :cascade do |t|
     t.integer "user_id"
@@ -19,15 +19,22 @@ ActiveRecord::Schema.define(version: 20180806164302) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "semester_id"
+    t.index ["semester_id"], name: "index_courses_on_semester_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
-  create_table "courses_users", force: :cascade do |t|
-    t.integer "users_id", null: false
-    t.integer "course_id", null: false
-    t.index ["course_id"], name: "index_courses_users_on_course_id"
-    t.index ["users_id"], name: "index_courses_users_on_users_id"
-    t.index [nil, "course_id"], name: "index_courses_users_on_user_id_and_course_id", unique: true
+  create_table "enrollments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.integer "semester_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "grade_id"
+    t.index ["course_id"], name: "index_enrollments_on_course_id"
+    t.index ["grade_id"], name: "index_enrollments_on_grade_id"
+    t.index ["semester_id"], name: "index_enrollments_on_semester_id"
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
   create_table "grades", force: :cascade do |t|
@@ -38,6 +45,12 @@ ActiveRecord::Schema.define(version: 20180806164302) do
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_grades_on_course_id"
     t.index ["user_id"], name: "index_grades_on_user_id"
+  end
+
+  create_table "semesters", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

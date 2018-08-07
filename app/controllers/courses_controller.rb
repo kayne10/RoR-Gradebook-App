@@ -6,13 +6,14 @@ class CoursesController < ApplicationController
   def new
     @course = Course.new
     @teachers = User.where(teacher:true)
+    @semesters = Semester.all
   end
 
   def show
     @course = Course.find(params[:id])
     @teacher = User.where(id:@course.user_id)
     # find users that are students and registed with class
-    @students = User.joins(grade: :course).where('courses.id'=> @course.id)
+    @students = User.joins(grade: :course).where('courses.id'=> @course.id).distinct
   end
 
   def edit
@@ -57,7 +58,7 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title, :start_date, :end_date, :user_id)
+    params.require(:course).permit(:title, :start_date, :end_date, :user_id, :semester_id)
   end
 
 end

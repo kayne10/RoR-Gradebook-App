@@ -16,24 +16,19 @@
         </tr>
       <% end %>
     </table>
+    <h3>Semester Key</h3>
+    <table class="table">
+      <tr>
+        <td>ID</td>
+        <td>Term</td>
+      </tr>
+      <% @semesters.each do |s|  %>
+        <tr>
+          <td><%= s.id %></td>
+          <td><%= s.title %></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
-  <div class="col-md-6">
-    <%= form_for(@course) do |f| %>
-
-      <%= f.label :user_id %>
-      <%= f.number_field :user_id, class: "form-control" %>
-
-      <%= f.label :title %>
-      <%= f.text_field :title, class: "form-control" %>
-
-      <%= f.label :start_date %>
-      <%= f.datetime_field :start_date, class: "form-control" %>
-
-      <%= f.label :end_date %>
-      <%= f.datetime_field :end_date, class: "form-control" %>
-
-      <%= f.submit "Add Course", class: "btn btn-primary" %>
-    <% end %>
-    <%= link_to 'Back', current_user  %>
-  </div>
+  <%= render 'form' %>
 </div>

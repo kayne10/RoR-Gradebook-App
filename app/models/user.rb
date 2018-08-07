@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :course
   has_many :grade
   has_many :enrollment
-  # validates :student, presence:true || :teacher, presence:true, || :admin, presence:true
+  # validates :student, presence:true | :teacher, presence:true, | :admin, presence:true
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
