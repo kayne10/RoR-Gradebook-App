@@ -7,6 +7,17 @@ class EnrollmentsController < ApplicationController
   def create
     @enrollment = Enrollment.new(enrollment_params)
     if @enrollment.save
+      # Create grade as well
+      # @grade = Grade.new(
+      #   user_id:@enrollment.user_id,
+      #   course_id:@enrollment.course_id,
+      #   grade_value:0)
+      # if @grade.save
+      #   #flash success
+      #   redirect_to current_user
+      # else
+      #   render 'new'
+      # end
       #flash success
       redirect_to current_user
     else

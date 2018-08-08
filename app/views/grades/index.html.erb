@@ -20,8 +20,8 @@
           <td><%= g.course_id %></td>
           <td><%= g.grade_value %></td>
           <td>
-            <button class="btn btn-primary">Edit</button>
-            <button class="btn btn-danger">Delete</button>
+            <%= link_to 'Edit', edit_grade_path(g), class:'btn btn-primary' %>
+            <%= link_to 'Delete', grade_path(g), method: 'delete', :data => {:confirm=>'Are you sure?'}, class: 'btn btn-danger' %>
           </td>
         </tr>
         <% end %>

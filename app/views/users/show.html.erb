@@ -57,8 +57,9 @@
       </div>
 
       <div class="col-md-8">
-        <h2>My Students</h2>
-        <!-- Loop through all students -->
+        <h2>Enrolled Students</h2>
+        <p>If student appears in course but not in this table, then you need to enroll them to the proper course.</p>
+        <!-- Loop through all students who are enrolled in a teachers class -->
         <table class="table">
           <tr>
             <td><strong>ID</strong></td>
@@ -111,6 +112,8 @@
             <!-- <td>Student ID</td> -->
             <td><strong>Course ID</strong></td>
             <td><strong>Title</strong></td>
+            <td><strong>Start Date</strong></td>
+            <td><strong>End Date</strong></td>
             <td><strong>Grade</strong></td>
           </tr>
             <% @student.each do |row| %>
@@ -119,6 +122,8 @@
                 <!-- <td><%= data.user_id %></td> -->
                 <td><%= data.course_id %> </td>
                 <td><%= data.course.title %></td>
+                <td><%= data.course.start_date %></td>
+                <td><%= data.course.end_date %></td>
                   <% if data.grade_value == 4 %>
                     <td>A</td>
                   <% elsif data.grade_value == 3 %>
@@ -136,7 +141,7 @@
           </table>
       </div>
       <div class="gpa col-md-8" style="display:flex;padding-right:3em;">
-        <h2>Semester GPA:  </h2>
+        <h2>Cumulative GPA:  </h2>
         <!-- Display GPA -->
         <br><br>
         <span class="gpa-value" style="font-size:1.5em;padding-top:1.5em;padding-left:3em;">

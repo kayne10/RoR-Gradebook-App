@@ -38,6 +38,12 @@ class GradesController < ApplicationController
     end
   end
 
+  def destroy
+    @grade = Grade.find(params[:id])
+    @grade.destroy
+    redirect_to current_user
+  end
+
   private
 
   def grade_params

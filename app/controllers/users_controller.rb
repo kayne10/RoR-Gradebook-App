@@ -23,6 +23,7 @@ class UsersController < ApplicationController
       @student = User.joins(grade: :course).distinct
       @student = @student.where(id:current_user)
       # Calculate GPA
+      # @semesters = Semester.joins(course: :grade).where('grades.user_id'=>current_user).distinct
       @grades = Grade.where(user_id:current_user)
       @grade_sum = @grades.sum(:grade_value)
       @grade_count = @grades.count
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
     else
       # inner join for semesters with enrollment count
       @semesters = Semester.joins(enrollment: :course).distinct
-      @courses = Course.joins(:grade).distinct # Join for Courses and GPA
+      @courses = Course.joins(:grade).distinct # Join for Courses and GPAs
     end
   end
 

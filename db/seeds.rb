@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-students = User.create(
+students = User.create!(
   [
     {
       id: 1,
@@ -56,7 +56,7 @@ students = User.create(
   ]
 )
 
-teachers = User.create(
+teachers = User.create!(
   [
     {
       id:6,
@@ -79,9 +79,17 @@ teachers = User.create(
   ]
 )
 # admin
-User.create(id:8, name:'Admin', email:'admin@gmail.com', student:false, teacher:false, admin:true, password_digest:'admin123')
+admin = User.create!(
+  id:8,
+  name:'Admin',
+  email:'admin@gmail.com',
+  student:false,
+  teacher:false,
+  admin:true,
+  password_digest:'admin123'
+)
 
-semesters = Semester.create(
+semesters = Semester.create!(
   [
     {
       id:1,
@@ -98,7 +106,7 @@ semesters = Semester.create(
   ]
 )
 
-courses = Course.create(
+courses = Course.create!(
   [
     {
       id:1,
@@ -152,7 +160,7 @@ courses = Course.create(
 )
 
 # grades
-grades = Grade.create(
+grades = Grade.create!(
   [
     {
       id:1,
@@ -236,7 +244,7 @@ grades = Grade.create(
 )
 
 # enrollments
-enrollments = Enrollment.create(
+enrollments = Enrollment.create!(
   [
     {
       id:1,
