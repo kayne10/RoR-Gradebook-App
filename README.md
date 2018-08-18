@@ -5,6 +5,7 @@ After taking upon the challenge to make this application and picking up a new fr
 ### Start the application from scratch
 `bundle && rake db:migrate && rails server`
 
+I included the sqlite file so the database is not empty. You can view the login info in `db/seed.rb`.`
 
 If you want to reset and seed the database use
 `rake db:reset && rake db:seed`
